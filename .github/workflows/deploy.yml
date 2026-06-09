@@ -1,0 +1,39 @@
+# Acest fișier definește un workflow GitHub Actions pentru a construi și a implementa un site Jekyll pe un server UPB folosind Rsync.
+name: Build and Deploy Jekyll Site
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.2' 
+        bundler-cache: true 
+
+    - name: Build Jekyll site
+      run: |
+        bundle install
+        JEKYLL_ENV=production bundle exec jekyll build
+
+    - name: Deploy to UPB Server via Rsync
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        SERVER_IP: ${{ secrets.SERVER_IP }}
+      run: |
+        mkdir -p ~/.ssh
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+        chmod 600 ~/.ssh/deploy_key
+        
+        ssh-keyscan -H $SERVER_IP >> ~/.ssh/known_hosts
+        
+        rsync -avz --delete -e "ssh -i ~/.ssh/deploy_key" ./_site/ github-action-user@$SERVER_IP:/var/www/biscuits.cs.pub.ro/
