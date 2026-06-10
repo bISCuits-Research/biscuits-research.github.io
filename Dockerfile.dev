@@ -1,0 +1,33 @@
+# ============================================================
+#  bISCuits — Jekyll Development Server
+#  Hot-reload, mounts project as volume
+# ============================================================
+FROM ubuntu:24.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ruby-full \
+    build-essential \
+    zlib1g-dev \
+    git \
+    ca-certificates \
+ && rm -rf /var/lib/apt/lists/*
+
+ENV GEM_HOME=/usr/local/bundle
+ENV BUNDLE_PATH=/usr/local/bundle
+ENV PATH=$GEM_HOME/bin:$PATH
+
+# Install gems (only bundler here; project gems installed at runtime via volume)
+RUN gem install bundler --no-document
+
+WORKDIR /srv/jekyll
+
+EXPOSE 4000 35729
+
+# Default: serve with LiveReload
+CMD ["bundle", "exec", "jekyll", "serve", \
+     "--host", "0.0.0.0", \
+     "--livereload", \
+     "--watch", \
+     "--force_polling"]

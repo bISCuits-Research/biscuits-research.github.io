@@ -1,0 +1,399 @@
+/* ==========================================================================
+   bISCuits Research Group — Main Stylesheet
+   Design tokens from Stitch "Crumb & Cipher" design system
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. CSS Custom Properties (Design Tokens)
+   -------------------------------------------------------------------------- */
+:root {
+  /* Colors — Light Mode */
+  --color-bg:               #F8FAFC;
+  --color-surface:          rgba(255, 255, 255, 0.85);
+  --color-border:           #E2E8F0;
+  --color-text:             #1E293B;
+  --color-text-variant:     #475569;
+  --color-footer-bg:        #ffffff;
+
+  /* Colors — Brand */
+  --color-primary:          #f59e0b;
+  --color-primary-dim:      #d97706;
+  --color-on-primary:       #1a0a00;
+
+  /* Spacing */
+  --margin-desktop:         64px;
+  --margin-mobile:          16px;
+  --gutter:                 24px;
+  --max-width:              1280px;
+
+  /* Typography */
+  --font-display:           'Geist', sans-serif;
+  --font-body:              'Inter', sans-serif;
+  --font-mono:              'JetBrains Mono', monospace;
+
+  /* Transitions */
+  --transition-base:        150ms ease;
+  --transition-colors:      300ms ease;
+}
+
+.dark {
+  /* Colors — Dark Mode */
+  --color-bg:               #051424;
+  --color-surface:          rgba(18, 33, 49, 0.85);
+  --color-border:           #1c2b3c;
+  --color-text:             #d4e4fa;
+  --color-text-variant:     #94a3b8;
+  --color-footer-bg:        #0d1c2d;
+}
+
+/* --------------------------------------------------------------------------
+   2. Base Reset
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  transition: background-color var(--transition-colors), color var(--transition-colors);
+}
+
+/* --------------------------------------------------------------------------
+   3. Typography
+   -------------------------------------------------------------------------- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-text);
+}
+
+h1 { font-size: clamp(2rem, 5vw, 3rem); }
+h2 { font-size: clamp(1.5rem, 3vw, 1.75rem); }
+h3 { font-size: 1.25rem; }
+
+p {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--color-text-variant);
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: opacity var(--transition-base);
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+code, pre, .mono {
+  font-family: var(--font-mono);
+}
+
+/* --------------------------------------------------------------------------
+   4. Layout Utilities
+   -------------------------------------------------------------------------- */
+.container {
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-inline: var(--margin-desktop);
+  }
+}
+
+.section {
+  padding-block: 5rem;
+}
+
+.section--sm {
+  padding-block: 3rem;
+}
+
+/* --------------------------------------------------------------------------
+   5. Buttons
+   -------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: all 200ms ease;
+  text-decoration: none;
+  border: none;
+}
+
+.btn:active { transform: scale(0.97); }
+
+.btn--primary {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.25);
+}
+
+.btn--primary:hover {
+  background-color: var(--color-primary-dim);
+  opacity: 1;
+}
+
+.btn--outline {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+.btn--outline:hover {
+  background-color: rgba(245, 158, 11, 0.1);
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   6. Cards
+   -------------------------------------------------------------------------- */
+.card {
+  background: var(--color-surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.card:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.1);
+}
+
+/* --------------------------------------------------------------------------
+   7. Section Headers
+   -------------------------------------------------------------------------- */
+.section-header {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border);
+  transition: color var(--transition-colors), border-color var(--transition-colors);
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   8. Page Hero (reusable for inner pages)
+   -------------------------------------------------------------------------- */
+.page-hero {
+  background: linear-gradient(135deg, var(--color-surface), transparent);
+  border-bottom: 1px solid var(--color-border);
+  padding-block: 4rem 3rem;
+}
+
+.page-hero__label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+}
+
+.page-hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--color-text);
+  margin-bottom: 1.5rem;
+}
+
+.page-hero__description {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--color-text-variant);
+  max-width: 48rem;
+}
+
+/* --------------------------------------------------------------------------
+   9. Tags / Chips
+   -------------------------------------------------------------------------- */
+.tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.625rem;
+  border-radius: 0.25rem;
+  border: 1px solid currentColor;
+  opacity: 0.9;
+}
+
+.tag--primary {
+  color: var(--color-primary);
+  background-color: rgba(245, 158, 11, 0.1);
+}
+
+.tag--secondary {
+  color: #6366f1;
+  background-color: rgba(99, 102, 241, 0.1);
+}
+
+.tag--tertiary {
+  color: #10b981;
+  background-color: rgba(16, 185, 129, 0.1);
+}
+
+/* --------------------------------------------------------------------------
+   10. Prose (markdown content)
+   -------------------------------------------------------------------------- */
+.prose h2 {
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.prose h3 {
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose p {
+  margin-bottom: 1.25rem;
+}
+
+.prose ul, .prose ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.prose li {
+  margin-bottom: 0.5rem;
+  color: var(--color-text-variant);
+  line-height: 1.7;
+}
+
+.prose a {
+  color: var(--color-primary);
+  border-bottom: 1px solid rgba(245, 158, 11, 0.4);
+  transition: border-color var(--transition-base);
+}
+
+.prose a:hover {
+  border-bottom-color: var(--color-primary);
+  opacity: 1;
+}
+
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--color-surface);
+  padding: 0.15em 0.4em;
+  border-radius: 0.2rem;
+  border: 1px solid var(--color-border);
+}
+
+.prose pre {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+}
+
+.prose blockquote {
+  border-left: 3px solid var(--color-primary);
+  padding-left: 1.25rem;
+  margin-block: 1.5rem;
+  font-style: italic;
+  color: var(--color-text-variant);
+}
+
+/* --------------------------------------------------------------------------
+   11. Animations & Micro-interactions
+   -------------------------------------------------------------------------- */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(245,158,11,0.2); }
+  50%       { box-shadow: 0 0 35px rgba(245,158,11,0.4); }
+}
+
+.animate-fade-in {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.animate-glow {
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+/* Stagger delays for grid children */
+.stagger > *:nth-child(1) { animation-delay: 0ms; }
+.stagger > *:nth-child(2) { animation-delay: 100ms; }
+.stagger > *:nth-child(3) { animation-delay: 200ms; }
+.stagger > *:nth-child(4) { animation-delay: 300ms; }
+
+/* --------------------------------------------------------------------------
+   12. Scrollbar (webkit)
+   -------------------------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* --------------------------------------------------------------------------
+   13. Selection
+   -------------------------------------------------------------------------- */
+::selection {
+  background-color: rgba(245, 158, 11, 0.25);
+  color: var(--color-text);
+}

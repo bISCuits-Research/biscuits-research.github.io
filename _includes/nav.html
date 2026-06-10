@@ -1,0 +1,56 @@
+<nav class="bg-light-surface dark:bg-dark-surface backdrop-blur-xl fixed top-0 w-full z-50 border-b border-light-border dark:border-dark-border shadow-sm transition-colors duration-300">
+  <div class="flex justify-between items-center px-6 md:px-margin-desktop py-4 max-w-max-width mx-auto">
+
+    <!-- Logo / Brand -->
+    <a href="{{ '/' | relative_url }}" class="text-headline-md font-headline font-bold text-primary tracking-tight hover:opacity-80 transition-opacity">
+      bISCuits
+    </a>
+
+    <!-- Desktop nav links -->
+    <div class="hidden md:flex items-center space-x-6">
+      {% for link in site.nav_links %}
+        <a href="{{ link.url | relative_url }}"
+           class="{% if page.url == link.url %}text-primary border-b-2 border-primary pb-1{% else %}text-light-text-variant dark:text-dark-text-variant hover:text-primary{% endif %} transition-colors duration-200 font-body text-body-md">
+          {{ link.title }}
+        </a>
+      {% endfor %}
+    </div>
+
+    <!-- Right side: theme toggle + CTA -->
+    <div class="flex items-center gap-3">
+      <!-- Dark/Light toggle -->
+      <button onclick="toggleTheme()"
+              aria-label="Toggle theme"
+              class="p-2 rounded-full hover:bg-light-border dark:hover:bg-dark-border transition-colors text-light-text dark:text-dark-text flex items-center justify-center">
+        <span class="material-symbols-outlined dark:hidden text-xl">dark_mode</span>
+        <span class="material-symbols-outlined hidden dark:block text-xl">light_mode</span>
+      </button>
+
+      <!-- Join Us CTA -->
+      <a href="{{ '/contact/' | relative_url }}"
+         class="bg-primary text-on-primary px-4 py-2 rounded font-mono text-label-caps hover:bg-primary-fixed-dim transition-all cursor-pointer active:scale-95 duration-200 shadow-glow-primary">
+        JOIN US
+      </a>
+
+      <!-- Mobile hamburger -->
+      <button id="mobile-menu-btn"
+              onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"
+              class="md:hidden p-2 rounded hover:bg-light-border dark:hover:bg-dark-border transition-colors"
+              aria-label="Open menu">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden md:hidden border-t border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface backdrop-blur-xl">
+    <div class="flex flex-col px-6 py-4 space-y-4">
+      {% for link in site.nav_links %}
+        <a href="{{ link.url | relative_url }}"
+           class="{% if page.url == link.url %}text-primary font-semibold{% else %}text-light-text-variant dark:text-dark-text-variant{% endif %} hover:text-primary transition-colors font-body text-body-md py-1">
+          {{ link.title }}
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</nav>
