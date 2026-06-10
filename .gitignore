@@ -8,6 +8,10 @@ _site/
 # Docker
 bundle_cache/
 
+# Gems (lock file generated inside Docker, not committed)
+Gemfile.lock
+.ruby-version
+
 # Gems
 vendor/
 
